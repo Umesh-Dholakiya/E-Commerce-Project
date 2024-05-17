@@ -148,9 +148,6 @@ table .product_remove {
     position: relative;
 }
  .update , .checkout{
-    position: absolute;
-    right: 19%;
-    top: 30px;
     padding: 16px 40px;
     border-radius: 10px;
     background-color: transparent;

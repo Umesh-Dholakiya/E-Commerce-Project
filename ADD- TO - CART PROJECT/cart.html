@@ -93,56 +93,53 @@
                             <table>
                                 <thead>
                                     <tr class="table-headers">
-                                        <th class="">Product-Image</th>
+                                        <th>Product-Image</th>
                                         <th class="product_Name">Product-Name</th>
                                         <th class="product_price">Price</th>
                                         <th class="product_quantity">Quantity</th>
-                                        <th class="product_subtotal">Subtotal</th>
                                         <th class="product_remove">Remove</th>
                                     </tr>
                                 </thead>
-                                <tbody class="table-box">
-                                    <tr>
-                                        <td class="" style="width: 170px;">
-                                            <img src="assets/img/product-2.webp" alt="" width="170" height="170">
-                                        </td>
-                                        <td class="product_Name"><a href="#">Bottle - Wood Cork</a></td>
-                                        <td class="product_price">$ 120.00</td>
-                                        <td class="product_quantity">
-                                            <div class="btns">
-                                                <button class="dec fs-15 w-25" id="decrement"> - </button>
-                                                <button id="count">1</button>
-                                                <button class="inc fs-15 w-25" id="increment"> + </button>
-                                            </div>
-                                        </td>
-                                        <td class="product_subtotal">$ 120.00</td>
-                                        <td class="product_remove">
-                                            <a href="#">DELETE</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="" style="width: 170px;">
-                                            <img src="assets/img/product-3.webp" alt="" width="170" height="170">
-                                        </td>
-                                        <td class="product_Name"><a href="#">Woolen Coffee Mug</a></td>
-                                        <td class="product_price">$ 140.00</td>
-                                        <td class="product_quantity">
-                                            <div class="btns">
-                                                <button class="dec fs-15 w-25" id="dec"> - </button>
-                                                <button id="countes">1</button>
-                                                <button class="inc fs-15 w-25" id="inc"> + </button>
-                                            </div>
-                                        </td>
-                                        <td class="product_subtotal">$ 140.00</td>
-                                        <td class="product_remove">
-                                            <a href="#" >DELETE </a>
-                                        </td>
-                                    </tr>
+                                <tbody class="table-box" id="cart">
+                                
+
                                 </tbody>
                             </table>
                             <div class="product_update d-flex">
-                                <a href="#"><button class="update">Update Cart</button></a>
-                                <a href="#"><button class="checkout" >Proceed to checkout</button></a>
+                                <div class="col-md-12 pl-5">
+                                    <div class="row justify-content-end">
+                                        <div class="col-md-7">
+                                            <div class="row">
+                                                <div class="col-md-6 text-right border-bottom mb-5 mt-5">
+                                                    <h3 class="text-black h4 text-uppercase">Cart Totals</h3>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col-md-4">
+                                                    <span class="text-black">Subtotal</span>
+                                                </div>
+                                                <div class="col-md-4 text-right">
+                                                    <strong class="text-black">$120.00</strong>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-5">
+                                                <div class="col-md-4">
+                                                    <span class="text-black">Total</span>
+                                                </div>
+                                                <div class="col-md-4 text-right">
+                                                    <strong class="text-black">$120.00</strong>
+                                                </div>
+                                            </div>
+                
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <a href="#"><button class="checkout">Proceed to checkout</button></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                               
                             </div>
                         </div>
                     </form>
@@ -152,8 +149,56 @@
     </section>
     <!-- cart_sec end -->
 
-    <script src="assets/js/cart.js"></script>
+    <script>
 
+        const getcart = () => {
+            let data = JSON.parse(localStorage.getItem("cart"));
+
+            let tbl = "";
+
+            data.map((c) => {
+                // sum = sum + c.price * c.quantity;
+
+                return (
+
+                    tbl +=
+
+                    `
+                    <tr>
+                    
+                       <th style="display:flex; justify-content:center;"><img src="${c.Image}" style="width:150px;"></th>
+                       <th style="font-size:15px;">${c.name}</th>
+                       <th>${c.price}</th>
+                         <th>
+                            <input type="number" style="width:90px;text-align:center; font-size:25px;" class="form-control"  value="${c.quantity}">
+                         </th>
+                         <th>
+                            <button style="border:none;background-color:white;" onclick="deletprod(${c.id})"><i class="fa-solid fa-trash-can"></i></button>
+                        </th>
+                    </tr>
+                
+                `
+                )
+            });
+            document.getElementById("cart").innerHTML = tbl;
+        }
+
+        getcart();
+
+        // delete product js 
+
+        const deletprod = (id) => {
+            let allcart = JSON.parse(localStorage.getItem('cart'));
+            let deleterecord = allcart.filter((c) => c.id != id);
+            localStorage.setItem('cart', JSON.stringify(deleterecord));
+            alert('delete sucessfully...');
+            getcart();
+        }
+        
+        
+
+
+    </script>
 </body>
 
 </html>
