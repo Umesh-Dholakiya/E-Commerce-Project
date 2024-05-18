@@ -97,49 +97,52 @@
                                         <th class="product_Name">Product-Name</th>
                                         <th class="product_price">Price</th>
                                         <th class="product_quantity">Quantity</th>
+                                        <th class="product_quantity" >SubTotal</th>
                                         <th class="product_remove">Remove</th>
                                     </tr>
                                 </thead>
                                 <tbody class="table-box" id="cart">
-                                
+
 
                                 </tbody>
                             </table>
                             <div class="product_update d-flex">
-                                <div class="col-md-12 pl-5">
+                                <div class="col-md-12">
                                     <div class="row justify-content-end">
-                                        <div class="col-md-7">
-                                            <div class="row">
-                                                <div class="col-md-6 text-right border-bottom mb-5 mt-5">
+                                        <div class="col-md-4 text-center">
+                                            <div class="row text-end">
+                                                <div class="col-md-11  mb-4 mt-5">
                                                     <h3 class="text-black h4 text-uppercase">Cart Totals</h3>
                                                 </div>
                                             </div>
-                                            <div class="row mb-3">
+                                            <div class="row mb-3 text-end">
                                                 <div class="col-md-4">
                                                     <span class="text-black">Subtotal</span>
                                                 </div>
                                                 <div class="col-md-4 text-right">
-                                                    <strong class="text-black">$120.00</strong>
+                                                    <strong class="text-black" id="subtotal">0.00</strong>
                                                 </div>
                                             </div>
-                                            <div class="row mb-5">
-                                                <div class="col-md-4">
+                                            
+                                            <div class="row mb-3 border-bottom text-end">
+                                                <div class="col-md-4 ">
                                                     <span class="text-black">Total</span>
                                                 </div>
-                                                <div class="col-md-4 text-right">
-                                                    <strong class="text-black">$120.00</strong>
+                                                <div class="col-md-4 ">
+                                                    <strong class="text-black" id="subtotal_1">0.00</strong>
                                                 </div>
                                             </div>
-                
-                                            <div class="row">
+
+                                            <div class="row ">
                                                 <div class="col-md-12">
-                                                    <a href="#"><button class="checkout">Proceed to checkout</button></a>
+                                                    <a href="#"><button class="checkout">Proceed to
+                                                            checkout</button></a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                               
+
                             </div>
                         </div>
                     </form>
@@ -149,56 +152,78 @@
     </section>
     <!-- cart_sec end -->
 
-    <script>
 
-        const getcart = () => {
-            let data = JSON.parse(localStorage.getItem("cart"));
+    <!-- JavaScript code -->
+<script>
 
-            let tbl = "";
+    
+    const updateCart = () => {
+        let data = JSON.parse(localStorage.getItem("cart"));
+        let tbl = "";
+        let subtotal = 0; 
 
-            data.map((c) => {
-                // sum = sum + c.price * c.quantity;
+       
+        data.map((c) => {
 
-                return (
 
-                    tbl +=
+            let itemSubtotal = c.price * c.quantity;
+            subtotal += itemSubtotal;
 
-                    `
-                    <tr>
-                    
-                       <th style="display:flex; justify-content:center;"><img src="${c.Image}" style="width:150px;"></th>
-                       <th style="font-size:15px;">${c.name}</th>
-                       <th>${c.price}</th>
-                         <th>
-                            <input type="number" style="width:90px;text-align:center; font-size:25px;" class="form-control"  value="${c.quantity}">
-                         </th>
-                         <th>
-                            <button style="border:none;background-color:white;" onclick="deletprod(${c.id})"><i class="fa-solid fa-trash-can"></i></button>
-                        </th>
-                    </tr>
-                
-                `
-                )
-            });
-            document.getElementById("cart").innerHTML = tbl;
-        }
+            tbl += `
+                <tr>
+                    <th style="display:flex; justify-content:center;"><img src="${c.Image}" style="width:150px;"></th>
+                    <th style="font-size:15px;">${c.name}</th>
+                    <th>${c.price}</th>
+                    <th>
+                        <div class="btns">
+                            <button class="fs-15 w-25 decrement" onclick="updateQuantity(${c.id}, -1)"> - </button>
+                            <button id="count">${c.quantity}</button>
+                            <button class="fs-15 w-25 increment" onclick="updateQuantity(${c.id}, 1)"> + </button>
+                        </div>
+                    </th>
+                    <th>  ${c.price * c.quantity}</th>
+                    <th>
+                        <button style="border:none;background-color:white;" onclick="deleteProduct(${c.id})">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                    </th>
+                </tr>
+            `;
+        });
 
-        getcart();
-
-        // delete product js 
-
-        const deletprod = (id) => {
-            let allcart = JSON.parse(localStorage.getItem('cart'));
-            let deleterecord = allcart.filter((c) => c.id != id);
-            localStorage.setItem('cart', JSON.stringify(deleterecord));
-            alert('delete sucessfully...');
-            getcart();
-        }
         
-        
+        document.getElementById("cart").innerHTML = tbl;
+        document.getElementById("subtotal").innerText = ` ₹ ${subtotal.toFixed(2)}  `  ;
+        document.getElementById("subtotal_1").innerText = ` ₹ ${subtotal.toFixed(2)}  `  ;
+    };
+
+    const deleteProduct = (id) => {
+        let allcart = JSON.parse(localStorage.getItem('cart'));
+        let updatedCart = allcart.filter((c) => c.id != id);
+        localStorage.setItem('cart', JSON.stringify(updatedCart));
+        alert('Product deleted successfully');
+        updateCart(); 
+    };
+
+    const updateQuantity = (id, change) => {
+        let allcart = JSON.parse(localStorage.getItem('cart'));
+        let updatedCart = allcart.map((c) => {
+            if (c.id === id) {
+                c.quantity += change; 
+                if (c.quantity < 1) c.quantity = 1; 
+            }
+            return c;
+        });
+        localStorage.setItem('cart', JSON.stringify(updatedCart));
+        updateCart(); 
+    };
+
+    updateCart();
+
+</script>
 
 
-    </script>
+
 </body>
 
 </html>

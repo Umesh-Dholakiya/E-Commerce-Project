@@ -314,114 +314,130 @@
             {
                 id: 1,
                 name: "Wooden Container Bowl",
-                price: " $ 199.00 ",
+                price: 199.00,
                 subTitle: "Essentials",
+                quantity :1,
                 Image: "assets/img/product-1.webp"
             },
             {
                 id: 2,
                 name: "BOTTLE – WOOD CORK",
-                price: " $ 120.00 ",
+                price: 120.00,
                 subTitle: "Interior",
+                quantity :1,
                 Image: "assets/img/product-2.webp"
             },
             {
                 id: 3,
                 name: "WOOLEN COFFEE MUG",
-                price: "$ 75.00 ",
+                price: 75.00,
                 subTitle: "Furniture ,Interior",
+                quantity :1,
                 Image: "assets/img/product-3.webp"
             },
             {
                 id: 4,
                 name: "SWEEPER",
-                price: "$ 39.99",
+                price: 39.99,
                 subTitle: "Canvas Basket , Essentials",
+                quantity :1,
                 Image: "assets/img/product-4.webp"
             },
             {
                 id: 5,
                 name: "WOODEN CONTAINER BOWL",
-                price: " $ 199.00 ",
+                price: 199.00 ,
                 subTitle: "Essentials , Furniture",
+                quantity :1,
                 Image: "assets/img/product-5.webp"
             },
             {
                 id: 6,
                 name: "ANALOG TABLE CLOCK",
-                price: " $ 140.00 ",
+                price: 140.00 ,
                 subTitle: "Decoration , Essentials , Lights",
+                quantity :1,
                 Image: "assets/img/product-6.webp"
             },
             {
                 id: 7,
                 name: "FLAT WOODEN PLATES",
-                price: " $ 190.00 ",
+                price: 190.00 ,
                 subTitle: "Essentials ,Furniture",
+                quantity :1,
                 Image: "assets/img/product-7.webp"
             },
             {
                 id: 8,
                 name: "HANDMADE COIR BASKET",
-                price: " $ 190.00 ",
+                price:  190.00 ,
                 subTitle: "Canvas Basket",
+                quantity :1,
                 Image: "assets/img/product-8.webp"
             },
 
             {
                 id: 9,
                 name: "LUNCH BAG SET",
-                price: " $ 119.10 ",
+                price: 119.10 ,
                 subTitle: "Essentials ,Outdoor",
+                quantity :1,
                 Image: "assets/img/product-9.webp"
             },
             {
                 id: 10,
                 name: "HANDCRAFTED VASE",
-                price: " $ 105.00 ",
+                price: 105.00 ,
                 subTitle: "Decoration , Essentials",
+                quantity :1,
                 Image: "assets/img/product-10.webp"
             },
             {
                 id: 11,
                 name: "GLASS CORK BOTTLES",
-                price: " $ 59.00 ",
+                price: 59.00 ,
                 subTitle: "Furniture",
+                quantity :1,
                 Image: "assets/img/product-11.webp"
             },
             {
                 id: 12,
                 name: "GLASS VASE",
-                price: " $ 25.00 ",
+                price: 25.00 ,
                 subTitle: "Decoration , Interior",
+                quantity :1,
                 Image: "assets/img/product-12.webp"
             },
             {
                 id: 13,
                 name: "FLOOD LIGHT BULB ",
-                price: " $ 190.00 ",
+                price: 190.00 ,
                 subTitle: "Decoration  , Lights",
+                quantity :1,
                 Image: "assets/img/product-13.webp"
             },
             {
                 id: 14,
                 name: "COFFEE MUG",
-                price: " $ 150.00 ",
+                price: 150.00 ,
                 subTitle: "Essentials , Furniture",
+                quantity :1,
                 Image: "assets/img/product-14.webp"
             },
             {
                 id: 15,
                 name: "PLASTIC CHAIR",
-                price: " $ 62.00 ",
+                price: 62.00 ,
                 subTitle: "Furniture",
+                quantity :1,
                 Image: "assets/img/product-15.webp"
             },
             {
                 id: 16,
                 name: "BOTTLE WITH WOODEN CORK",
-                price: " $ 135.00 ",
+                price:  135.00 ,
                 subTitle: " Essentials , Furniture",
+                quantity :1,
                 Image: "assets/img/product-16.webp"
             },
         ];
@@ -466,6 +482,7 @@
             let c = product.find(item => item.id == id);
 
             if(c){
+                
                 cart.push(c);
                 localStorage.setItem('cart', JSON.stringify(cart));
                 alert("Product Successfully add in cart");
